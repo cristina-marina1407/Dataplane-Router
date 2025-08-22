@@ -1,17 +1,17 @@
 ## Tema 1 PCOM - Dataplane Router
 
-    This project implements the dataplane component of a router using C. In my
+This project implements the dataplane component of a router using C. In my
 implementation I only use the static ARP table, using the parse_arp_table
 function provided in the homework resources. Besides that, the router handles
 IPv4 packets and selectively responds to ICMP messages, such as Echo Request, 
 Destination Unreachable and Time Exceeded.
-    First of all, my code uses global variables for the routing and arp tables
+First of all, my code uses global variables for the routing and arp tables
 and their lengths. The `main` function reads these tables and determines what
 type of packet we have to deal with. It checks if the received packet is for this
 router by comparing the destination MAC address with the interface's MAC address
 or by checking if the address is a broadcast address. The broadcast verification 
 is done using a helper function called `is_broadcast_mac()`.
-    In addition to this, the program also uses a trie data structure to efficently
+In addition to this, the program also uses a trie data structure to efficently
 find the best route, the longest prefix match, in the routing table. The functions
 that handle the trie implementation are located in the `trie.c` and `trie.h` files.
 The trie is constructed using the `trie_insert()` function where each node represents
@@ -19,7 +19,7 @@ a bit of the prefix. To find the best route for a given destination IP address,
 the code uses the `trie_search()` function that traverses the trie bit by bit in
 order to select the longest prefix match.
 
-    The implementation uses two functions to handle the ipv4 packets:
+The implementation uses two functions to handle the ipv4 packets:
 - `analyze_ipv4_packet`
     This function checks if the ip header has a icmp protocol with the echo request
     type and handles it properly if it does. Then it checks if the checksum is
